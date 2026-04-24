@@ -40,7 +40,7 @@ jobs:
 
       - name: Install Arch build dependencies
         run: |
-          pacman -Sy --noconfirm --needed base-devel fakeroot git fuse3 libxcrypt-compat http-parser
+          pacman -Sy --noconfirm --needed base-devel fakeroot git
 
       - name: Clean workspace
         run: rm -rf dist dist_electron node_modules ~/.cache/electron-builder ~/.cache/electron
