@@ -126,9 +126,7 @@ windowList.set(IWindowList.SETTING_WINDOW, {
       }
     })
     bus.emit(CREATE_APP_MENU)
-    if (isWindowShouldShowOnStartup(IWindowList.MINI_WINDOW) || process.platform !== 'linux') {
-      windowManager.create(IWindowList.MINI_WINDOW)
-    }
+    windowManager.create(IWindowList.MINI_WINDOW)
   }
 })
 

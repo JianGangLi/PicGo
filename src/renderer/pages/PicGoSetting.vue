@@ -1,47 +1,24 @@
 <template>
-  <div id="picgo-setting">
-    <el-row
-      class="view-title"
-      align="middle"
-      justify="center"
-    >
-      {{ $T('PICGO_SETTINGS') }} -
-      <el-icon
-        class="el-icon-document"
-        @click="goConfigPage"
-      >
-        <Reading />
-      </el-icon>
-    </el-row>
-    <el-row class="setting-list">
-      <el-col
-        :span="20"
-        :offset="2"
-      >
-        <el-row style="width: 100%">
-          <el-form
-            label-position="left"
-            label-width="50%"
-            size="small"
-          >
-            <SelectAreaSettings
-              :settings="form"
-            />
-            <ButtonAreaSettings
-              v-model:proxy="proxy"
-              :settings="form"
-            />
-            <SwitchAreaSettings
-              :settings="form"
-            />
-            <CustomAreaSettings
-              :settings="form"
-            />
-          </el-form>
+    <div id="picgo-setting">
+        <el-row class="view-title" align="middle" justify="center">
+            {{ $T('PICGO_SETTINGS') }} -
+            <el-icon class="el-icon-document" @click="goConfigPage">
+                <Reading />
+            </el-icon>
         </el-row>
-      </el-col>
-    </el-row>
-  </div>
+        <el-row class="setting-list">
+            <el-col :span="20" :offset="2">
+                <el-row style="width: 100%">
+                    <el-form label-position="left" label-width="50%" size="small">
+                        <SelectAreaSettings :settings="form" />
+                        <ButtonAreaSettings v-model:proxy="proxy" :settings="form" />
+                        <SwitchAreaSettings :settings="form" />
+                        <CustomAreaSettings :settings="form" />
+                    </el-form>
+                </el-row>
+            </el-col>
+        </el-row>
+    </div>
 </template>
 <script lang="ts" setup>
 import { ElForm } from 'element-plus'
@@ -60,32 +37,32 @@ import { useStore } from '@/hooks/useStore'
 import { isLinuxPlatform } from '@/utils/bridge'
 
 const form = reactive<ISettingForm>({
-  showUpdateTip: false,
-  showPicBedList: [],
-  autoStart: false,
-  rename: false,
-  autoRename: false,
-  uploadNotification: false,
-  notificationSound: true,
-  miniWindowOnTop: false,
-  logLevel: ['all'],
-  autoCopyUrl: true,
-  checkBetaUpdate: true,
-  useBuiltinClipboard: false,
-  language: 'en',
-  logFileSizeLimit: 10,
-  encodeOutputURL: true,
-  showDockIcon: true,
-  showMenubarIcon: true,
-  customLink: '$url',
-  npmProxy: '',
-  npmRegistry: '',
-  server: {
-    port: 36677,
-    host: '127.0.0.1',
-    enable: true
-  },
-  startupMode: IStartupMode.HIDE
+    showUpdateTip: false,
+    showPicBedList: [],
+    autoStart: false,
+    rename: false,
+    autoRename: false,
+    uploadNotification: false,
+    notificationSound: true,
+    miniWindowOnTop: false,
+    logLevel: ['all'],
+    autoCopyUrl: true,
+    checkBetaUpdate: true,
+    useBuiltinClipboard: false,
+    language: 'en',
+    logFileSizeLimit: 10,
+    encodeOutputURL: true,
+    showDockIcon: true,
+    showMenubarIcon: true,
+    customLink: '$url',
+    npmProxy: '',
+    npmRegistry: '',
+    server: {
+        port: 36677,
+        host: '127.0.0.1',
+        enable: true
+    },
+    startupMode: IStartupMode.HIDE
 })
 
 const proxy = ref('')
@@ -93,65 +70,65 @@ const store = useStore()
 const appConfig = computed(() => store?.state.appConfig ?? null)
 
 onBeforeMount(() => {
-  store?.refreshAppConfig()
+    store?.refreshAppConfig()
 })
 
 const applyAppConfig = (config: DeepReadonly<IConfig> | null) => {
-  if (!config) return
-  const settings = config.settings || {}
-  const picBed = config.picBed
-  form.showUpdateTip = settings.showUpdateTip || false
-  form.autoStart = settings.autoStart || false
-  form.rename = settings.rename || false
-  form.autoRename = settings.autoRename || false
-  form.uploadNotification = settings.uploadNotification || false
-  form.notificationSound = settings.notificationSound === undefined ? true : settings.notificationSound
-  form.miniWindowOnTop = settings.miniWindowOnTop || false
-  form.logLevel = initLogLevel(settings.logLevel ? [...settings.logLevel] : [])
-  form.autoCopyUrl = settings.autoCopyUrl === undefined ? true : settings.autoCopyUrl
-  form.checkBetaUpdate = settings.checkBetaUpdate === undefined ? true : settings.checkBetaUpdate
-  form.useBuiltinClipboard = settings.useBuiltinClipboard === undefined ? false : settings.useBuiltinClipboard
-  form.language = settings.language ?? 'en'
-  form.encodeOutputURL = settings.encodeOutputURL === undefined ? false : settings.encodeOutputURL
-  form.customLink = settings.customLink || '$url'
-  form.npmProxy = settings.npmProxy || ''
-  form.npmRegistry = settings.npmRegistry || ''
-  proxy.value = picBed.proxy || ''
-  const server = settings.server ?? {}
-  form.server = {
-    port: enforceNumber(server.port ?? 36677) || 36677,
-    host: server.host || '127.0.0.1',
-    enable: server.enable ?? true
-  }
-  form.logFileSizeLimit = enforceNumber(settings.logFileSizeLimit ?? 10) || 10
-  form.showDockIcon = settings.showDockIcon === undefined ? true : settings.showDockIcon
-  form.showMenubarIcon = settings.showMenubarIcon === undefined ? true : settings.showMenubarIcon
-  form.startupMode = settings.startupMode || (isLinuxPlatform() ? IStartupMode.SHOW_MINI_WINDOW : IStartupMode.HIDE)
+    if (!config) return
+    const settings = config.settings || {}
+    const picBed = config.picBed
+    form.showUpdateTip = settings.showUpdateTip || false
+    form.autoStart = settings.autoStart || false
+    form.rename = settings.rename || false
+    form.autoRename = settings.autoRename || false
+    form.uploadNotification = settings.uploadNotification || false
+    form.notificationSound = settings.notificationSound === undefined ? true : settings.notificationSound
+    form.miniWindowOnTop = settings.miniWindowOnTop || false
+    form.logLevel = initLogLevel(settings.logLevel ? [...settings.logLevel] : [])
+    form.autoCopyUrl = settings.autoCopyUrl === undefined ? true : settings.autoCopyUrl
+    form.checkBetaUpdate = settings.checkBetaUpdate === undefined ? true : settings.checkBetaUpdate
+    form.useBuiltinClipboard = settings.useBuiltinClipboard === undefined ? false : settings.useBuiltinClipboard
+    form.language = settings.language ?? 'en'
+    form.encodeOutputURL = settings.encodeOutputURL === undefined ? false : settings.encodeOutputURL
+    form.customLink = settings.customLink || '$url'
+    form.npmProxy = settings.npmProxy || ''
+    form.npmRegistry = settings.npmRegistry || ''
+    proxy.value = picBed.proxy || ''
+    const server = settings.server ?? {}
+    form.server = {
+        port: enforceNumber(server.port ?? 36677) || 36677,
+        host: server.host || '127.0.0.1',
+        enable: server.enable ?? true
+    }
+    form.logFileSizeLimit = enforceNumber(settings.logFileSizeLimit ?? 10) || 10
+    form.showDockIcon = settings.showDockIcon === undefined ? true : settings.showDockIcon
+    form.showMenubarIcon = settings.showMenubarIcon === undefined ? true : settings.showMenubarIcon
+    form.startupMode = settings.startupMode || (isLinuxPlatform() ? IStartupMode.HIDE : IStartupMode.HIDE)
 }
 
 watch(appConfig, (config) => {
-  applyAppConfig(config)
+    applyAppConfig(config)
 }, { immediate: true })
 
-function initLogLevel (logLevel: string | string[]) {
-  if (!Array.isArray(logLevel)) {
-    if (logLevel && logLevel.length > 0) {
-      logLevel = [logLevel]
-    } else {
-      logLevel = ['all']
+function initLogLevel(logLevel: string | string[]) {
+    if (!Array.isArray(logLevel)) {
+        if (logLevel && logLevel.length > 0) {
+            logLevel = [logLevel]
+        } else {
+            logLevel = ['all']
+        }
     }
-  }
-  return logLevel
+    return logLevel
 }
 
-function goConfigPage () {
-  openURL('https://docs.picgo.app/gui/guide/config#picgo-setting')
+function goConfigPage() {
+    openURL('https://docs.picgo.app/gui/guide/config#picgo-setting')
 }
 
 </script>
 <script lang="ts">
 export default {
-  name: 'SettingPage'
+    name: 'SettingPage'
 }
 </script>
 <style lang='stylus'>

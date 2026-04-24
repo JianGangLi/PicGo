@@ -26,6 +26,10 @@ const config: Configuration = {
     '!node_modules/@babel/**/*',
     "!**/node_modules/typescript{,/**}"
   ],
+  // Force electron-builder to include all production dependencies
+  npmRebuild: true,
+  buildDependenciesFromSource: false,
+  nodeGypRebuild: false,
   extraResources: [
     {
       from: 'public',
