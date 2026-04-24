@@ -126,7 +126,9 @@ windowList.set(IWindowList.SETTING_WINDOW, {
       }
     })
     bus.emit(CREATE_APP_MENU)
-    windowManager.create(IWindowList.MINI_WINDOW)
+    if (isWindowShouldShowOnStartup(IWindowList.MINI_WINDOW) || process.platform !== 'linux') {
+      windowManager.create(IWindowList.MINI_WINDOW)
+    }
   }
 })
 
@@ -137,7 +139,7 @@ windowList.set(IWindowList.MINI_WINDOW, {
     const obj: IBrowserWindowOptions = {
       height: 64,
       width: 64,
-      show: isLinux,
+      show: false,
       frame: false,
       fullscreenable: false,
       skipTaskbar: true,
