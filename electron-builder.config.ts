@@ -8,7 +8,6 @@ const shouldNotarize = process.env.SKIP_NOTARIZE !== 'true'
 const config: Configuration = {
   appId: 'com.molunerfinn.picgo',
   productName: 'PicGo',
-  homepage: 'https://github.com/Molunerfinn/PicGo',
   afterSign: shouldNotarize ? 'scripts/notarize.js' : undefined,
   // publish: [
   //   {

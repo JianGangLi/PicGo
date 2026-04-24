@@ -2,6 +2,7 @@
     "name": "picgo",
     "version": "2.5.3",
     "private": true,
+    "homepage": "https://github.com/Molunerfinn/PicGo",
     "main": "dist_electron/main/index.js",
     "description": "A powerful & simple image uploader for creators.",
     "author": {
