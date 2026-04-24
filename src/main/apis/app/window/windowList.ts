@@ -37,7 +37,14 @@ const handleWindowParams = (windowURL: string) => {
 }
 
 export const isWindowShouldShowOnStartup = (currentWindow: IWindowList) => {
-  const startupMode = picgo.getConfig<IStartupMode | undefined>('settings.startupMode') || (isLinux ? IStartupMode.SHOW_MINI_WINDOW : isWindows ? IStartupMode.SHOW_MAIN_WINDOW : IStartupMode.HIDE)
+  const startupMode = picgo.getConfig<IStartupMode | undefined>('settings.startupMode')
+    || (isLinux
+      ? picgo.getConfig<boolean>('settings.autoStart')
+        ? IStartupMode.HIDE
+        : IStartupMode.SHOW_MINI_WINDOW
+      : isWindows
+        ? IStartupMode.SHOW_MAIN_WINDOW
+        : IStartupMode.HIDE)
   switch (currentWindow) {
     case IWindowList.MINI_WINDOW: {
       return startupMode === IStartupMode.SHOW_MINI_WINDOW

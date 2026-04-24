@@ -104,7 +104,11 @@ const config: Configuration = {
       },
       {
         target: 'snap',
-        arch: ['x64'],
+        arch: ['x64']
+      },
+      {
+        target: 'pacman',
+        arch: ['x64']
       }
     ],
     maintainer: 'Molunerfinn',
